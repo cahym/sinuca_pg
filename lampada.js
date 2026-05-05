@@ -59,6 +59,7 @@ export function carregarLampada(scene) {
         spotLight.position.set(0, 2.5, 0); 
         spotLight.angle = Math.PI / 3;
         spotLight.penumbra = 0.3;
+        spotLight.castShadow = true;
         spotLight.target.position.set(0, 0, 0);
         
         scene.add(spotLight);

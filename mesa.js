@@ -31,6 +31,9 @@ export function carregarMesa(scene){
             colorF.colorSpace = THREE.SRGBColorSpace;
 
             mesa.traverse((child) => {
+                if (child.isMesh) {
+                    child.receiveShadow = true;
+                }
                 if (child.isMesh && child.material.name === 'Material.001') {
                     child.material = new THREE.MeshStandardMaterial({
                         map: colorPT,
