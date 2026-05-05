@@ -2,6 +2,7 @@ import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158/build/three.mod
 import { carregarMesa } from './mesa.js';
 import { carregarLampada } from './lampada.js';
 import { carregarBola, atualizarBola } from './bola.js';
+import { carregarTaco } from './taco.js';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x392620);
@@ -28,7 +29,10 @@ scene.add(light);
 carregarMesa(scene);
 
 carregarLampada(scene);
+
 carregarBola(scene);
+
+carregarTaco(scene);
 
 const camera = new THREE.PerspectiveCamera(
   30,
@@ -39,15 +43,38 @@ const camera = new THREE.PerspectiveCamera(
 camera.position.set(0, 4.5, 9);
 camera.lookAt(0, 0, 0);
 
+const cameraCima = new THREE.PerspectiveCamera(
+  30,
+  window.innerWidth / window.innerHeight,
+  0.1,
+  1000
+);
+cameraCima.position.set(0, 5, 0);
+cameraCima.lookAt(0, 0, 0);
+
+let cameraAtiva = camera;
+
 function setCameraFov(fov) {
-  camera.fov = fov;
-  camera.updateProjectionMatrix();
+  cameraAtiva.fov = fov;
+  cameraAtiva.updateProjectionMatrix();
 }
 
 const cameraButton1 = document.getElementById('camera1');
 const cameraButton2 = document.getElementById('camera2');
-if (cameraButton1) cameraButton1.addEventListener('click', () => setCameraFov(60));
-if (cameraButton2) cameraButton2.addEventListener('click', () => setCameraFov(25));
+
+if (cameraButton1) {
+  cameraButton1.addEventListener('click', () => {
+    cameraAtiva = camera;
+    setCameraFov(60);
+  });
+}
+
+if (cameraButton2) {
+  cameraButton2.addEventListener('click', () => {
+    cameraAtiva = cameraCima;
+    setCameraFov(60);
+  });
+}
 
 setCameraFov(60);
 
@@ -57,12 +84,16 @@ function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
   atualizarBola(delta);
-  renderer.render(scene, camera);
+  renderer.render(scene, cameraAtiva);
 }
 animate();
 
 window.addEventListener('resize', () => {
   camera.aspect = window.innerWidth / window.innerHeight;
   camera.updateProjectionMatrix();
+
+  cameraCima.aspect = window.innerWidth / window.innerHeight;
+  cameraCima.updateProjectionMatrix();
+
   renderer.setSize(window.innerWidth, window.innerHeight);
 });
