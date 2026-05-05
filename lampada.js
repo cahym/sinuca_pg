@@ -36,7 +36,7 @@ export function carregarLampada(scene) {
         const size = box.getSize(new THREE.Vector3()).length();
         const scalar = 5 / size; 
         lampada.scale.set(scalar, scalar, scalar);
-        lampada.position.set(0, 3, 0);
+        lampada.position.set(0, 3.1, 0);
 
         lampada.traverse((child) => {
             if (child.isMesh) {
@@ -55,10 +55,10 @@ export function carregarLampada(scene) {
 
         scene.add(lampada);
 
-        const spotLight = new THREE.SpotLight(0xffffff, 150);
-        spotLight.position.set(0, 2.5, 0); 
-        spotLight.angle = Math.PI / 3;
-        spotLight.penumbra = 0.3;
+        const spotLight = new THREE.SpotLight(0xffffff, 100);
+        spotLight.position.set(0, 2.8, 0); 
+        spotLight.angle = Math.PI / 2.95;
+        spotLight.penumbra = 0.2;
         spotLight.castShadow = true;
         spotLight.target.position.set(0, 0, 0);
         

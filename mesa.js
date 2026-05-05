@@ -1,11 +1,10 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js';
 import { GLTFLoader } from 'https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/loaders/GLTFLoader.js';
 
-export function carregarMesa(scene){
+const loader = new GLTFLoader();
+const textureLoader = new THREE.TextureLoader();
 
-    const loader = new GLTFLoader();
-    const textureLoader = new THREE.TextureLoader();
-    
+export function carregarMesa(scene){
     loader.load(
         './models/pool_table.glb', 
         (gltf) => {            
@@ -83,7 +82,6 @@ export function carregarMesa(scene){
             });
 
             scene.add(mesa);
-            
         },
         undefined,
         (error) => {

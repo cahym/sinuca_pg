@@ -1,5 +1,8 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js';
 import { carregarMesa } from './mesa.js';
+import { carregarGiz } from './giz.js';
+import { carregarCerveja } from './cerveja.js';
+import { carregarCopo } from './copo.js';
 import { carregarLampada } from './lampada.js';
 import { carregarBola, atualizarBola } from './bola.js';
 import { carregarTaco } from './taco.js';
@@ -27,6 +30,9 @@ light.shadow.camera.far = 50;
 scene.add(light);
 
 carregarMesa(scene);
+carregarGiz(scene);
+carregarCerveja(scene);
+carregarCopo(scene);
 
 carregarLampada(scene);
 
@@ -40,7 +46,7 @@ const camera = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-camera.position.set(0, 4.5, 9);
+camera.position.set(0, 4, 10);
 camera.lookAt(0, 0, 0);
 
 const cameraCima = new THREE.PerspectiveCamera(
@@ -49,7 +55,7 @@ const cameraCima = new THREE.PerspectiveCamera(
   0.1,
   1000
 );
-cameraCima.position.set(0, 5, 0);
+cameraCima.position.set(0, 5.2, 0);
 cameraCima.lookAt(0, 0, 0);
 
 let cameraAtiva = camera;

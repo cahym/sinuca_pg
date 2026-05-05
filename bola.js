@@ -5,7 +5,7 @@ let bola = null;
 let bolaDirection = 1;
 const bolaSpeed = 1.2;
 const bolaRange = 2.0;
-const bolaRotationMultiplier = 1.4;
+const bolaRotationMultiplier = -1;
 let bolaRadius = 0.4;
 
 export function atualizarBola(delta) {
