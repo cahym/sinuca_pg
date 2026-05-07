@@ -29,6 +29,7 @@ light.shadow.camera.near = 0.5;
 light.shadow.camera.far = 50;
 scene.add(light);
 
+
 carregarMesa(scene);
 carregarGiz(scene);
 carregarCerveja(scene);
@@ -39,6 +40,60 @@ carregarLampada(scene);
 carregarBola(scene);
 
 carregarTaco(scene);
+
+//paredes
+const textureLoader = new THREE.TextureLoader();
+const colorB = textureLoader.load('./textures/bricks_color.jpg');
+const normalB = textureLoader.load('./textures/bricks_normal.jpg');
+const roughnessB = textureLoader.load('./textures/bricks_roughness.jpg');
+colorB.colorSpace = THREE.SRGBColorSpace;
+
+// REPETIÇÃO DAS TEXTURAS
+[colorB, normalB, roughnessB].forEach((tex) => {
+
+    tex.wrapS = THREE.RepeatWrapping;
+    tex.wrapT = THREE.RepeatWrapping;
+
+    // ajuste do tamanho dos tijolos
+    tex.repeat.set(8, 4);
+});
+
+const wallMaterial = new THREE.MeshStandardMaterial({
+  map: colorB,
+  normalMap: normalB,
+  roughnessMap: roughnessB,
+  color: 0x555555,
+  roughness: 1.0
+});
+
+const backWall = new THREE.Mesh(
+  new THREE.PlaneGeometry(30, 15),
+  wallMaterial
+);
+
+backWall.position.set(0, 7, -4);
+
+scene.add(backWall);
+
+const leftWall = new THREE.Mesh(
+  new THREE.PlaneGeometry(30, 15),
+  wallMaterial
+);
+
+leftWall.rotation.y = Math.PI / 2;
+leftWall.position.set(-7, 7, 0);
+scene.add(leftWall);
+
+const rightWall = new THREE.Mesh(
+  new THREE.PlaneGeometry(30, 15),
+  wallMaterial
+);
+
+rightWall.rotation.y = -Math.PI / 2;
+
+rightWall.position.set(7, 7, 0);
+
+scene.add(rightWall);
 
 const camera = new THREE.PerspectiveCamera(
   30,
