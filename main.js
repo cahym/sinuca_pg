@@ -124,8 +124,9 @@ cameraCima.lookAt(0, 0, 0);
 let cameraAtiva = camera;
 
 const composer = new EffectComposer(renderer);
+const renderPass = new RenderPass(scene, cameraAtiva);
 
-composer.addPass(new RenderPass(scene, cameraAtiva));
+composer.addPass(renderPass);
 
 const bloomPass = new UnrealBloomPass(
     new THREE.Vector2(window.innerWidth, window.innerHeight),
@@ -147,6 +148,7 @@ const cameraButton2 = document.getElementById('camera2');
 if (cameraButton1) {
   cameraButton1.addEventListener('click', () => {
     cameraAtiva = camera;
+    renderPass.camera = cameraAtiva;
     setCameraFov(60);
   });
 }
@@ -154,6 +156,7 @@ if (cameraButton1) {
 if (cameraButton2) {
   cameraButton2.addEventListener('click', () => {
     cameraAtiva = cameraCima;
+    renderPass.camera = cameraAtiva;
     setCameraFov(60);
   });
 }
