@@ -1,4 +1,9 @@
 import * as THREE from 'https://cdn.jsdelivr.net/npm/three@0.158/build/three.module.js';
+//imports para neon da placa
+import { EffectComposer } from 'https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/postprocessing/EffectComposer.js';
+import { RenderPass } from 'https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/postprocessing/RenderPass.js';
+import { UnrealBloomPass } from 'https://cdn.jsdelivr.net/npm/three@0.158/examples/jsm/postprocessing/UnrealBloomPass.js';
+
 import { carregarMesa } from './mesa.js';
 import { carregarGiz } from './giz.js';
 import { carregarCerveja } from './cerveja.js';
@@ -6,6 +11,7 @@ import { carregarCopo } from './copo.js';
 import { carregarLampada } from './lampada.js';
 import { carregarBola, atualizarBola } from './bola.js';
 import { carregarTaco } from './taco.js';
+import { carregarPlaca } from './placa.js';
 
 const scene = new THREE.Scene();
 scene.background = new THREE.Color(0x392620);
@@ -41,6 +47,8 @@ carregarBola(scene);
 
 carregarTaco(scene);
 
+carregarPlaca(scene);
+
 //paredes
 const textureLoader = new THREE.TextureLoader();
 const colorB = textureLoader.load('./textures/bricks_color.jpg');
@@ -51,14 +59,14 @@ colorB.colorSpace = THREE.SRGBColorSpace;
 // REPETIÇÃO DAS TEXTURAS
 [colorB, normalB, roughnessB].forEach((tex) => {
 
-    tex.wrapS = THREE.RepeatWrapping;
+  tex.wrapS = THREE.RepeatWrapping;
     tex.wrapT = THREE.RepeatWrapping;
-
+    
     // ajuste do tamanho dos tijolos
     tex.repeat.set(8, 4);
-});
+  });
 
-const wallMaterial = new THREE.MeshStandardMaterial({
+  const wallMaterial = new THREE.MeshStandardMaterial({
   map: colorB,
   normalMap: normalB,
   roughnessMap: roughnessB,
@@ -115,6 +123,19 @@ cameraCima.lookAt(0, 0, 0);
 
 let cameraAtiva = camera;
 
+const composer = new EffectComposer(renderer);
+
+composer.addPass(new RenderPass(scene, cameraAtiva));
+
+const bloomPass = new UnrealBloomPass(
+    new THREE.Vector2(window.innerWidth, window.innerHeight),
+    1.5, // força
+    0.4, // raio
+    0.85 // threshold
+);
+
+composer.addPass(bloomPass);
+
 function setCameraFov(fov) {
   cameraAtiva.fov = fov;
   cameraAtiva.updateProjectionMatrix();
@@ -145,7 +166,7 @@ function animate() {
   requestAnimationFrame(animate);
   const delta = clock.getDelta();
   atualizarBola(delta);
-  renderer.render(scene, cameraAtiva);
+  composer.render();
 }
 animate();
 
