@@ -25,7 +25,7 @@ export function carregarCerveja(scene) {
         (gltf) => {
             cervejaObj = gltf.scene;
             cervejaObj.scale.set(0.2, 0.2, 0.2);
-            cervejaObj.position.set(2, 0.35, 2.4);
+            cervejaObj.position.set(1.4, 0.35, 2.4);
             cervejaObj.traverse((child) => {
                 if (child.isMesh) {
                     child.castShadow = true;
@@ -59,7 +59,6 @@ export function atualizarCerveja(delta) {
 
     if (tempoAnimacao <= 1.5) {
         const progresso = tempoAnimacao / 1.5;
-        cervejaObj.position.x = 2.0 - (0.6 * progresso); 
         cervejaObj.position.y = 0.35 + (0.5 * progresso); 
     } 
 
@@ -85,13 +84,12 @@ export function atualizarCerveja(delta) {
     else if (tempoAnimacao > 6.5 && tempoAnimacao <= 8.0) {
         estado = 'voltando';
         const progresso = (tempoAnimacao - 6.5) / 1.5;
-        cervejaObj.position.x = 1.4 + (0.6 * progresso);
         cervejaObj.position.y = 0.85 - (0.5 * progresso);
     }
    
     else if (tempoAnimacao > 8.0) {
         animando = false;
-        cervejaObj.position.set(2, 0.35, 2.4);
+        cervejaObj.position.set(1.4, 0.35, 2.4);
         cervejaObj.rotation.z = 0;
         estado = 'parado';
     }
