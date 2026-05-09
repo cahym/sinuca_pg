@@ -7,8 +7,15 @@ const bolaSpeed = 1.2;
 const bolaRange = 2.0;
 const bolaRotationMultiplier = -1;
 let bolaRadius = 0.4;
+const BallButton = document.getElementById('resetBola')
 
 export function atualizarBola(delta) {
+  if(BallButton){
+    BallButton.addEventListener('click', () => {
+      bola.position.set(-bolaRange, 0.25, 0);
+      bolaDirection = 1;
+    });
+  }
   if (!bola) return;
   const displacement = bolaSpeed * bolaDirection * delta;
   bola.position.x += displacement;
@@ -16,10 +23,7 @@ export function atualizarBola(delta) {
 
   if (bola.position.x >= bolaRange) {
     bola.position.x = bolaRange;
-    bolaDirection = -1;
-  } else if (bola.position.x <= -bolaRange) {
-    bola.position.x = -bolaRange;
-    bolaDirection = 1;
+    bolaDirection = -0;
   }
 }
 

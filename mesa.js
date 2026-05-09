@@ -78,6 +78,7 @@ export function carregarMesa(scene){
                         metalness: 0,
                         color: 0x555555
                     });
+                    child.receiveShadow = false;
                 }
             });
 
