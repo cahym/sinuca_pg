@@ -124,13 +124,6 @@ if (cameraButton2) {
 }
 
 setCameraFov(60);
-/*const BallButton = document.getElementById('resetBola');
-
-if(BallButton){
-    BallButton.addEventListener('click', () => {
-        bola.position.set(-bolaRange, 0.25, 0);
-    });
-}*/
 
 
 const clock = new THREE.Clock();
