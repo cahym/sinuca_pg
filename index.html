@@ -3,6 +3,19 @@
 <head>
   <meta charset="UTF-8">
   <title>3D</title>
+
+  <style>
+    html, body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+
+    canvas {
+      display: block;
+    }
+  </style>
+
   <script type="importmap">
     {
       "imports": {
@@ -12,12 +25,14 @@
     }
   </script>
 </head>
+
 <body>
   <div id="camera-controls" style="position:fixed;top:10px;left:10px;z-index:100;display:flex;gap:8px;">
     <button id="camera1">Câmera Padrão</button>
     <button id="camera2">Vista de cima</button>
     <button id="resetBola">Resetar Bola</button>
   </div>
+
   <script type="module" src="main.js"></script>
 </body>
 </html>
